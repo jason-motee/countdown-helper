@@ -2,6 +2,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,10 +11,9 @@ import java.util.List;
 public class WordFinderTest {
 
     @Test
-    public void shouldFindWordsInFileThatEqualInput() throws IOException {
+    public void shouldFindWordsInFileThatEqualInput() throws IOException, URISyntaxException {
         // given
-        WordFinder wordFinder = new WordFinder();
-        wordFinder.setPath("/Users/jason.motee/Exercises/coundown-helper-app/src/test/resources/words_test.txt");
+        WordFinder wordFinder = new WordFinder("words_test.txt");
 
         // when
         List<String> actual = wordFinder.search("a");
@@ -24,10 +24,9 @@ public class WordFinderTest {
     }
 
     @Test
-    public void shouldFindWordsInFileThatEqualInput_whenLettersAreInAnyOrder() throws IOException {
+    public void shouldFindWordsInFileThatEqualInput_whenLettersAreInAnyOrder() throws IOException, URISyntaxException {
         // given
-        WordFinder wordFinder = new WordFinder();
-        wordFinder.setPath("/Users/jason.motee/Exercises/coundown-helper-app/src/test/resources/words_test.txt");
+        WordFinder wordFinder = new WordFinder("words_test.txt");
 
         // when
         List<String> actual = wordFinder.search("ba");
@@ -38,7 +37,7 @@ public class WordFinderTest {
     }
 
     @Test
-    public void shouldFindAllWordsInDictionaryThatContainInput() throws IOException {
+    public void shouldFindAllWordsInDictionaryThatContainInput() throws IOException, URISyntaxException {
         // given
         WordFinder wordFinder = new WordFinder();
         // when
@@ -46,12 +45,13 @@ public class WordFinderTest {
         List<String> expected = new ArrayList<>(Arrays.asList("teated", "patted", "update", "pedate", "pattee", "petted", "depute", "putted", "puttee"));
 
         // then
+        // not sure about this containsAny??
         Assertions.assertThat(actual).containsAnyElementsOf(expected);
         Assertions.assertThat(actual).doesNotContain("tapped");
     }
 
     @Test
-    public void shouldReturnAllWordsInDictionaryThatAreTheBiggest() throws IOException {
+    public void shouldReturnAllWordsInDictionaryThatAreTheBiggest() throws IOException, URISyntaxException {
         // given
         WordFinder wordFinder = new WordFinder();
 
